@@ -4,10 +4,10 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 pub enum TestingError {
-    #[error("Testing not found")]
+    #[error("{0} not found")]
     NotFound(String),
 
-    #[error("Validation error")]
+    #[error("Validation error: {0}")]
     ValidationError(String),
 
     #[error("Database error: {0}")]
@@ -16,7 +16,6 @@ pub enum TestingError {
 
 #[derive(Serialize)]
 struct ErrorBody {
-    success: bool,
     error: String,
     message: String,
 }
@@ -34,7 +33,6 @@ impl ResponseError for TestingError {
         };
 
         HttpResponse::build(status).json(ErrorBody {
-            success: false,
             error: error_code.to_string(),
             message: self.to_string(),
         })

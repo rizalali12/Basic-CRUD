@@ -30,6 +30,13 @@ pub struct UpdateTesting {
 
     #[validate(length(min = 5, max = 100))]
     pub message: String,
+
+    pub id: Uuid,
+}
+
+#[derive(Debug, Deserialize, Validate)]
+pub struct GetTestingWithPayload {
+    pub id: Uuid,
 }
 
 #[derive(Debug, Deserialize)]

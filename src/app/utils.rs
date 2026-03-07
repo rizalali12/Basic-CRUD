@@ -1,4 +1,4 @@
-use actix_web::HttpResponse;
+use actix_web::{web, HttpResponse};
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -14,7 +14,7 @@ impl<T: Serialize> ApiResponse<T> {
         HttpResponse::Ok().json(Self {
             success: true,
             message: message.to_string(),
-            data: Some(data),
+            data: None,
         })
     }
 
@@ -30,3 +30,5 @@ impl<T: Serialize> ApiResponse<T> {
 pub fn no_content() -> HttpResponse {
     HttpResponse::NoContent().finish()
 }
+
+

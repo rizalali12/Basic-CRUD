@@ -18,6 +18,10 @@ pub fn configure(cfg: &mut web::ServiceConfig, pool: PgPool) {
             .app_data(web::Data::new(pool))
             .app_data(json_cfg)
             .route("", web::get().to(views::list))
-            .route("", web::post().to(views::create)),
+            .route("", web::post().to(views::create))
+            .route("", web::put().to(views::update))
+            .route("/detailwithpayload", web::get().to(views::detail_with_payload))
+            .route("/{id}", web::get().to(views::detail))
+            .route("/{id}", web::delete().to(views::delete))
     );
 }
